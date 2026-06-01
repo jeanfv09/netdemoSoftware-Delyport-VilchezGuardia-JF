@@ -1,8 +1,443 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "LEIMPORT - Importaciones desde China";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background-color: #0d0a2e;
+        color: white;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .page-wrap {
+        background:
+            radial-gradient(ellipse 90% 50% at 50% 0%, #3d2080 0%, transparent 55%),
+            radial-gradient(ellipse 60% 40% at 0% 40%, #2a1260 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 100% 60%, #2a1260 0%, transparent 50%),
+            radial-gradient(ellipse 70% 50% at 50% 100%, #1a0a3e 0%, transparent 60%),
+            linear-gradient(180deg, #0d0a2e 0%, #130d3a 25%, #0f0b30 50%, #0d0a2e 75%, #0a0820 100%);
+        min-height: 100vh;
+    }
+
+    .navbar {
+        background: rgba(13, 10, 46, 0.6) !important;
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    }
+    .navbar-brand, .nav-link { color: rgba(255,255,255,0.85) !important; font-family: 'DM Sans', sans-serif; }
+    .navbar-brand { font-weight: 700; letter-spacing: 2px; font-size: 0.9rem; }
+
+    /* ── HERO ── */
+    .hero {
+        min-height: 92vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding: 80px 0 60px;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        width: 700px; height: 700px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    .hero::after {
+        content: '';
+        position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        color: #c9a84c;
+        letter-spacing: 4px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        font-weight: 500;
+    }
+    .hero-badge::before, .hero-badge::after {
+        content: '✦';
+        margin: 0 10px;
+        opacity: 0.6;
+    }
+
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3.5rem, 8vw, 6.5rem);
+        font-weight: 900;
+        letter-spacing: -3px;
+        line-height: 1;
+        margin-bottom: 24px;
+    }
+    .hero-title .gold { color: #c9a84c; }
+
+    .hero-sub {
+        font-size: 1.15rem;
+        color: rgba(255,255,255,0.5);
+        max-width: 540px;
+        margin: 0 auto 48px;
+        line-height: 1.85;
+        font-weight: 300;
+    }
+
+    .btn-gold {
+        background: linear-gradient(135deg, #c9a84c, #e8c96a);
+        color: #08061a;
+        padding: 15px 44px;
+        border-radius: 3px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        display: inline-block;
+    }
+    .btn-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(201,168,76,0.35);
+        color: #08061a;
+    }
+
+    .btn-outline {
+        border: 1px solid rgba(255,255,255,0.2);
+        color: rgba(255,255,255,0.6);
+        padding: 15px 44px;
+        border-radius: 3px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        display: inline-block;
+    }
+    .btn-outline:hover {
+        border-color: rgba(201,168,76,0.5);
+        color: #c9a84c;
+    }
+
+    .stats-bar {
+        border-top: 1px solid rgba(255,255,255,0.06);
+        margin-top: 60px;
+        padding-top: 48px;
+    }
+    .stat-number {
+        font-family: 'Playfair Display', serif;
+        color: #c9a84c;
+        font-weight: 900;
+        font-size: 2.2rem;
+        line-height: 1;
+    }
+    .stat-label {
+        color: rgba(255,255,255,0.25);
+        font-size: 0.78rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 6px;
+    }
+
+    /* ── Divisor ── */
+    .section-divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+    }
+
+    /* ── Secciones ── */
+    .section {
+        padding: 100px 0;
+        position: relative;
+    }
+
+    .section-label {
+        color: #c9a84c;
+        letter-spacing: 4px;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 16px;
+    }
+
+    /* ── Cards servicios ── */
+    .service-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 44px 36px;
+        height: 100%;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    .service-card::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top left, rgba(201,168,76,0.06) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+    .service-card:hover {
+        border-color: rgba(201,168,76,0.35);
+        transform: translateY(-6px);
+        background: rgba(255,255,255,0.04);
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-card.featured {
+        border-color: rgba(201,168,76,0.4);
+        background: rgba(201,168,76,0.03);
+    }
+    .service-card.featured::before { opacity: 1; }
+    .service-icon { font-size: 2.2rem; margin-bottom: 24px; display: block; }
+    .service-card h5 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+    .service-card.featured h5 { color: #c9a84c; }
+    .service-card p {
+        color: rgba(255,255,255,0.4);
+        line-height: 1.85;
+        font-size: 0.92rem;
+        font-weight: 300;
+    }
+
+    /* ── Por qué ── */
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .feature-item:last-child { border-bottom: none; }
+    .feature-dot {
+        width: 6px; height: 6px;
+        background: #c9a84c;
+        border-radius: 50%;
+        margin-top: 8px;
+        flex-shrink: 0;
+    }
+    .feature-item span { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.6; }
+
+    .sede-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 10px;
+        padding: 32px 28px;
+        transition: border-color 0.3s;
+    }
+    .sede-card:hover { border-color: rgba(201,168,76,0.3); }
+    .sede-card h3 {
+        font-family: 'Playfair Display', serif;
+        color: #c9a84c;
+        font-weight: 900;
+        font-size: 1.6rem;
+        line-height: 1.1;
+    }
+    .sede-card p {
+        color: rgba(255,255,255,0.25);
+        font-size: 0.82rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 6px 0 0;
+    }
+
+    .cta-card {
+        background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.02));
+        border: 1px solid rgba(201,168,76,0.3);
+        border-radius: 10px;
+        padding: 36px 28px;
+        text-align: center;
+    }
+    .cta-card p { color: rgba(255,255,255,0.4); font-size: 0.88rem; margin-bottom: 20px; }
+
+    /* ── Footer ── */
+    .site-footer {
+        border-top: 1px solid rgba(255,255,255,0.04);
+        padding: 36px 0;
+        text-align: center;
+    }
+    .site-footer p { color: rgba(255,255,255,0.15); font-size: 0.8rem; letter-spacing: 1px; }
+
+    /* ── Animaciones ── */
+    @@keyframes fadeUp {
+        from { opacity: 0; transform: translateY(28px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.8s cubic-bezier(0.23,1,0.32,1) both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.55s; }
+</style>
+
+<div class="page-wrap">
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container text-center position-relative" style="z-index:1;">
+            <p class="hero-badge fade-up">Importaciones Premium desde China</p>
+            <h1 class="hero-title fade-up delay-1">
+                LEI<span class="gold">M</span>PORT
+            </h1>
+            <p class="hero-sub fade-up delay-2">
+                Conectamos los mejores productos de China con los negocios
+                de Lima. Calidad, confianza y entrega puntual garantizada.
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap fade-up delay-3">
+                <a asp-controller="Solicitud" asp-action="Registrar" class="btn-gold">
+                    Solicitar Delivery
+                </a>
+                <a asp-controller="Solicitud" asp-action="Lista" class="btn-outline">
+                    Mis Solicitudes
+                </a>
+            </div>
+            <div class="row stats-bar fade-up delay-4">
+                <div class="col-4">
+                    <div class="stat-number">+500</div>
+                    <div class="stat-label">Clientes Activos</div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-number">+10K</div>
+                    <div class="stat-label">Entregas Realizadas</div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Sedes en Lima</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- SERVICIOS -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="section-label">Nuestros Servicios</p>
+                <h2 class="section-title">Lo que ofrecemos</h2>
+                <p style="color:rgba(255,255,255,0.3); max-width:480px; margin:0 auto; font-size:0.95rem; font-weight:300;">
+                    Soluciones completas para importar y distribuir tus productos en Lima
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <span class="service-icon">🚚</span>
+                        <h5>Delivery Express</h5>
+                        <p>Entregamos tus importaciones directamente en tu negocio. Cubrimos los principales distritos de Lima con rapidez y seguridad.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card featured">
+                        <span class="service-icon">📦</span>
+                        <h5>Importación Directa</h5>
+                        <p>Importamos directamente desde China los productos que tu negocio necesita. Electrodomésticos, ropa, accesorios y más.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <span class="service-icon">🔍</span>
+                        <h5>Seguimiento en Tiempo Real</h5>
+                        <p>Rastrea el estado de tus pedidos en todo momento. Transparencia total desde el registro hasta la entrega.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- POR QUÉ LEIMPORT -->
+    <section class="section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-md-6">
+                    <p class="section-label">¿Por qué elegirnos?</p>
+                    <h2 class="section-title">
+                        La importadora de<br>confianza de Lima
+                    </h2>
+                    <p style="color:rgba(255,255,255,0.35); line-height:1.9; margin-bottom:36px; font-size:0.95rem; font-weight:300;">
+                        Desde nuestras sedes en Cercado de Lima y Santa Anita,
+                        atendemos a cientos de minoristas y pequeños negocios que
+                        confían en nosotros para traer los mejores productos de China
+                        al mejor precio.
+                    </p>
+                    <div>
+                        @foreach (var item in new[] {
+                            "Precios competitivos directo del fabricante",
+                            "Entregas puntuales con seguimiento digital",
+                            "Atención personalizada para cada cliente",
+                            "Más de 10 años en el mercado importador"
+                        })
+                        {
+                            <div class="feature-item">
+                                <span class="feature-dot"></span>
+                                <span>@item</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="sede-card">
+                                <h3>Cercado</h3>
+                                <p>de Lima</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="sede-card">
+                                <h3>Santa</h3>
+                                <p>Anita</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="cta-card">
+                                <p>¿Listo para tu próximo pedido?</p>
+                                <a asp-controller="Solicitud" asp-action="Registrar" class="btn-gold">
+                                    Solicitar Ahora →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>© 2026 LEIMPORT · Sistema DELYPORT · Todos los derechos reservados · Lima, Perú</p>
+    </footer>
+
 </div>

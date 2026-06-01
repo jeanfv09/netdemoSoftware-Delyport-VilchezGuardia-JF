@@ -94,3 +94,4 @@ C:\Users\pc\Documents\SoftwareTrabajo\SISDELYPORT\obj\Debug\net9.0\refint\SISDEL
 C:\Users\pc\Documents\SoftwareTrabajo\SISDELYPORT\obj\Debug\net9.0\SISDELYPORT.pdb
 C:\Users\pc\Documents\SoftwareTrabajo\SISDELYPORT\obj\Debug\net9.0\SISDELYPORT.genruntimeconfig.cache
 C:\Users\pc\Documents\SoftwareTrabajo\SISDELYPORT\obj\Debug\net9.0\ref\SISDELYPORT.dll
+C:\Users\pc\Documents\SoftwareTrabajo\SISDELYPORT\obj\Debug\net9.0\SISDELYPORT.sourcelink.json

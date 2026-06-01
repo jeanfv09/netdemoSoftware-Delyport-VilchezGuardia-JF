@@ -1,0 +1,236 @@
+@model SISDELYPORT.Models.Solicitud
+@{
+    ViewData["Title"] = "Solicitud Registrada";
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+    body { background-color: #0d0a2e; color: white; font-family: 'DM Sans', sans-serif; }
+    .page-wrap {
+        background:
+            radial-gradient(ellipse 90% 50% at 50% 0%, #3d2080 0%, transparent 55%),
+            radial-gradient(ellipse 60% 40% at 0% 40%, #2a1260 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 100% 60%, #2a1260 0%, transparent 50%),
+            linear-gradient(180deg, #0d0a2e 0%, #130d3a 25%, #0f0b30 50%, #0d0a2e 100%);
+        min-height: 100vh;
+        padding: 60px 0 80px;
+    }
+    .page-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+    .section-label {
+        color: #c9a84c;
+        letter-spacing: 4px;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .success-banner {
+        background: rgba(74,222,128,0.06);
+        border: 1px solid rgba(74,222,128,0.2);
+        border-radius: 10px;
+        padding: 20px 24px;
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .success-icon {
+        font-size: 1.8rem;
+        flex-shrink: 0;
+    }
+    .success-banner h6 {
+        color: #4ade80;
+        font-weight: 600;
+        margin: 0 0 4px;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .success-banner p {
+        color: rgba(255,255,255,0.4);
+        margin: 0;
+        font-size: 0.88rem;
+    }
+    .codigo-grande {
+        font-family: 'Playfair Display', serif;
+        color: #c9a84c;
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+    .resumen-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 14px;
+        overflow: hidden;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .resumen-row {
+        display: flex;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        transition: background 0.2s;
+    }
+    .resumen-row:last-child { border-bottom: none; }
+    .resumen-row:hover { background: rgba(255,255,255,0.02); }
+    .resumen-label {
+        width: 200px;
+        flex-shrink: 0;
+        padding: 18px 24px;
+        color: rgba(255,255,255,0.3);
+        font-size: 0.78rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 500;
+        border-right: 1px solid rgba(255,255,255,0.04);
+        display: flex;
+        align-items: center;
+    }
+    .resumen-valor {
+        padding: 18px 24px;
+        color: rgba(255,255,255,0.8);
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+    .badge-codigo {
+        background: rgba(201,168,76,0.1);
+        color: #c9a84c;
+        border: 1px solid rgba(201,168,76,0.25);
+        padding: 4px 14px;
+        border-radius: 3px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+    }
+    .badge-estado {
+        background: rgba(250,204,21,0.1);
+        color: #facc15;
+        border: 1px solid rgba(250,204,21,0.25);
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+    .btn-gold {
+        background: linear-gradient(135deg, #c9a84c, #e8c96a);
+        color: #08061a;
+        padding: 13px 36px;
+        border-radius: 3px;
+        font-weight: 700;
+        font-size: 0.82rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        border: none;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(201,168,76,0.3);
+        color: #08061a;
+    }
+    .btn-outline {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.15);
+        color: rgba(255,255,255,0.5);
+        padding: 13px 32px;
+        border-radius: 3px;
+        font-size: 0.82rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-block;
+    }
+    .btn-outline:hover {
+        border-color: rgba(201,168,76,0.3);
+        color: #c9a84c;
+    }
+    .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+        margin-bottom: 40px;
+    }
+</style>
+
+<div class="page-wrap">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <p class="section-label">Sistema DELYPORT</p>
+            <h1 class="page-title">Solicitud Registrada</h1>
+            <p style="color:rgba(255,255,255,0.3); font-size:0.9rem; margin-top:8px;">
+                Tu solicitud fue procesada correctamente
+            </p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div style="max-width:700px; margin:0 auto;">
+
+            <!-- Banner éxito -->
+            <div class="success-banner">
+                <div class="success-icon">✅</div>
+                <div>
+                    <h6>Solicitud registrada exitosamente</h6>
+                    <p>
+                        Código: <span class="codigo-grande">@Model.CodigoSolicitud</span>
+                        &nbsp;·&nbsp; @Model.FechaRegistro.ToString("dd/MM/yyyy HH:mm")
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tabla resumen -->
+            <div class="resumen-card">
+                <div class="resumen-row">
+                    <div class="resumen-label">Código</div>
+                    <div class="resumen-valor">
+                        <span class="badge-codigo">@Model.CodigoSolicitud</span>
+                    </div>
+                </div>
+                <div class="resumen-row">
+                    <div class="resumen-label">Cliente</div>
+                    <div class="resumen-valor">@Model.NombreCliente</div>
+                </div>
+                <div class="resumen-row">
+                    <div class="resumen-label">Distrito</div>
+                    <div class="resumen-valor">@Model.DistritoDestino</div>
+                </div>
+                <div class="resumen-row">
+                    <div class="resumen-label">Paquete</div>
+                    <div class="resumen-valor">@Model.DescripcionPaquete</div>
+                </div>
+                <div class="resumen-row">
+                    <div class="resumen-label">Fecha</div>
+                    <div class="resumen-valor">@Model.FechaRequerida.ToString("dd/MM/yyyy")</div>
+                </div>
+                <div class="resumen-row">
+                    <div class="resumen-label">Estado</div>
+                    <div class="resumen-valor">
+                        <span class="badge-estado">@Model.Estado</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acciones -->
+            <div class="d-flex gap-3 flex-wrap mt-4">
+                <a asp-action="Registrar" class="btn-gold">
+                    + Nueva Solicitud
+                </a>
+                <a asp-action="Lista" class="btn-outline">
+                    Ver Mis Solicitudes
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
