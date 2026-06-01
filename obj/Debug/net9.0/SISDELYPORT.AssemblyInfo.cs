@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SISDELYPORT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f13beab3d58d8bcd3a2e2e9605179b1ac6d676b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b435cfaa82189f85f2b3c921304b25c83bae1d87")]
 [assembly: System.Reflection.AssemblyProductAttribute("SISDELYPORT")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SISDELYPORT")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
