@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SISDELYPORT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1ec5d64ff04a0dbd269cbb8542b361753d179a91")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0764b1bb2d3ce20dbce698268ccb0ff36397a8f1")]
+>>>>>>> feature/HU-003-validar-solicitudes
 [assembly: System.Reflection.AssemblyProductAttribute("SISDELYPORT")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SISDELYPORT")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

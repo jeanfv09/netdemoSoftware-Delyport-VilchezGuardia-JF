@@ -25,9 +25,15 @@ namespace SISDELYPORT.Models
         public DateTime FechaRequerida { get; set; }
 
         public string Estado { get; set; } = "Pendiente";
+
         public string CodigoSolicitud { get; set; } = "";
+
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
+
         public string HistorialCambios { get; set; } = "";
+
         public string MotivoRechazo { get; set; } = "";
+
     }
 }
+
