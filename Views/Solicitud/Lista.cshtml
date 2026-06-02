@@ -1,0 +1,223 @@
+@model List<SISDELYPORT.Models.Solicitud>
+@{
+    ViewData["Title"] = "Mis Solicitudes";
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+    body { background-color: #0d0a2e; color: white; font-family: 'DM Sans', sans-serif; }
+    .page-wrap {
+        background:
+            radial-gradient(ellipse 90% 50% at 50% 0%, #3d2080 0%, transparent 55%),
+            radial-gradient(ellipse 60% 40% at 0% 40%, #2a1260 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 100% 60%, #2a1260 0%, transparent 50%),
+            linear-gradient(180deg, #0d0a2e 0%, #130d3a 25%, #0f0b30 50%, #0d0a2e 100%);
+        min-height: 100vh;
+        padding: 60px 0 80px;
+    }
+    .page-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+    .section-label {
+        color: #c9a84c;
+        letter-spacing: 4px;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .btn-gold {
+        background: linear-gradient(135deg, #c9a84c, #e8c96a);
+        color: #08061a;
+        padding: 11px 32px;
+        border-radius: 3px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.82rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        display: inline-block;
+        border: none;
+    }
+    .btn-gold:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(201,168,76,0.3);
+        color: #08061a;
+    }
+    .sol-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .sol-table thead tr {
+        border-bottom: 1px solid rgba(201,168,76,0.3);
+    }
+    .sol-table thead th {
+        color: #c9a84c;
+        font-size: 0.72rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 14px 16px;
+        font-family: 'DM Sans', sans-serif;
+    }
+    .sol-table tbody tr {
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+        transition: background 0.2s;
+    }
+    .sol-table tbody tr:hover {
+        background: rgba(255,255,255,0.03);
+    }
+    .sol-table tbody td {
+        padding: 16px;
+        color: rgba(255,255,255,0.7);
+        font-size: 0.9rem;
+    }
+    .badge-estado {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+    .badge-pendiente {
+        background: rgba(250,204,21,0.12);
+        color: #facc15;
+        border: 1px solid rgba(250,204,21,0.25);
+    }
+    .badge-validado {
+        background: rgba(74,222,128,0.12);
+        color: #4ade80;
+        border: 1px solid rgba(74,222,128,0.25);
+    }
+    .badge-rechazado {
+        background: rgba(248,113,113,0.12);
+        color: #f87171;
+        border: 1px solid rgba(248,113,113,0.25);
+    }
+    .codigo-badge {
+        font-family: 'DM Sans', sans-serif;
+        background: rgba(201,168,76,0.1);
+        color: #c9a84c;
+        border: 1px solid rgba(201,168,76,0.2);
+        padding: 3px 10px;
+        border-radius: 3px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+    }
+    .empty-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        opacity: 0.3;
+    }
+    .empty-state h5 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        color: rgba(255,255,255,0.5);
+        margin-bottom: 10px;
+    }
+    .empty-state p {
+        color: rgba(255,255,255,0.25);
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+    }
+    .wrap-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+        margin-bottom: 40px;
+    }
+</style>
+
+<div class="page-wrap">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-start mb-5 flex-wrap gap-3">
+            <div>
+                <p class="section-label">Sistema DELYPORT</p>
+                <h1 class="page-title">Mis Solicitudes</h1>
+                <p style="color:rgba(255,255,255,0.3); font-size:0.9rem; margin-top:6px;">
+                    Historial de solicitudes de delivery registradas
+                </p>
+            </div>
+            <a asp-controller="Solicitud" asp-action="Registrar" class="btn-gold">
+                + Nueva Solicitud
+            </a>
+        </div>
+
+        <div class="section-divider"></div>
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <div class="wrap-card">
+                <div class="empty-state">
+                    <div class="empty-icon">📦</div>
+                    <h5>No hay solicitudes aún</h5>
+                    <p>Registra tu primera solicitud de delivery para verla aquí.</p>
+                    <a asp-controller="Solicitud" asp-action="Registrar" class="btn-gold">
+                        Registrar Solicitud
+                    </a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="wrap-card">
+                <table class="sol-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Cliente</th>
+                            <th>Distrito</th>
+                            <th>Paquete</th>
+                            <th>Fecha Requerida</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var s in Model)
+                        {
+                            <tr>
+                                <td><span class="codigo-badge">@s.CodigoSolicitud</span></td>
+                                <td>@s.NombreCliente</td>
+                                <td>@s.DistritoDestino</td>
+                                <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                    @s.DescripcionPaquete
+                                </td>
+                                <td>@s.FechaRequerida.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @{
+                                        var cls = s.Estado == "Validado" ? "badge-validado"
+                                                : s.Estado == "Rechazado" ? "badge-rechazado"
+                                                : "badge-pendiente";
+                                    }
+                                    <span class="badge-estado @cls">@s.Estado</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:rgba(255,255,255,0.2); font-size:0.78rem; margin-top:16px; letter-spacing:1px;">
+                @Model.Count solicitud(es) registrada(s)
+            </p>
+        }
+
+    </div>
+</div>
